@@ -24,9 +24,20 @@ class Client
 
         $guzzleOptions['handler'] = $handler;
 
-        // Création du client
-        //-------------------
         $this->client = new HttpClient($guzzleOptions);
     }
 
+    public function createTicket($fromEmail, $subject, $content, $url = null, $userAgent = null, $navigator = null)
+    {
+        return $this->client->post('/tickets', [
+            'json' => [
+                'email' => $fromEmail,
+                'subject' => $subject,
+                'content' => $content,
+                'url' => $url,
+                'userAgent' => $userAgent,
+                'navigator' => $navigator,
+            ]
+        ]);
+    }
 }
