@@ -2,28 +2,21 @@
 
 namespace Awelty\CentreAide\PhpSdk;
 
-use Awelty\Component\Security\AuthenticatorInterface;
-use Awelty\Component\Security\Middleware;
+use Awelty\Component\Security\HmacSignatureProvider;
+use Awelty\Component\Security\MiddlewareProvider;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client as HttpClient;
 
 class Client
 {
-    /**
-     * @var AuthenticatorInterface
-     */
-    private $authenticator;
-
     private $client;
 
-    public function __construct(AuthenticatorInterface $authenticator, $guzzleOptions = [])
+    public function __construct(HmacSignatureProvider $hmacSignature, $guzzleOptions = [])
     {
-        $this->authenticator = $authenticator;
-
         // Création du handler
         //---------------------
         $handler = HandlerStack::create();
-        $handler->push(Middleware::authenticateMiddleware($authenticator));
+        $handler->push(MiddlewareProvider::signRequestMiddleware($hmacSignature));
 
         if (isset($guzzleOptions['handler'])) {
             throw new \Exception('Do you really need to set an handler ?');
