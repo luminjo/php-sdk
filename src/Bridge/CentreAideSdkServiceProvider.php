@@ -22,7 +22,7 @@ class CentreAideSdkServiceProvider implements ServiceProviderInterface, Bootable
         /**
          * Options pour construire le client Guzzle
          */
-        $container['centreaide.options'] = [];
+        $container['centreaide.guzzle.options'] = [];
 
         /**
          * Authenticator
@@ -35,17 +35,17 @@ class CentreAideSdkServiceProvider implements ServiceProviderInterface, Bootable
     public function boot(Application $app)
     {
         // "force" base_uri
-        $options = $app['guzzle.options'];
+        $options = $app['centreaide.guzzle.options'];
         $options['base_uri'] = 'http://api.jplantey.centre-aide.fr'; // TODO
 
-        $app['guzzle.options'] = $options;
+        $app['centreaide.guzzle.options'] = $options;
 
         // create services
         foreach ($app['centreaide.companies'] as $name => $config) {
             $authenticator = new HmacSignatureProvider($config['public_key'], $config['private_key'], 'sha1');
 
             $app['centreaide.'.$name.'.client'] = function (Container $container) use ($authenticator) {
-                return new Client($authenticator, $container['guzzle.options']);
+                return new Client($authenticator, $container['centreaide.guzzle.options']);
             };
         }
     }
