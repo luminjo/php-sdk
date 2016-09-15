@@ -1,42 +1,55 @@
 <?php
 
-namespace Awelty\CentreAide\PhpSdk;
+namespace CentreAide\PhpSdk;
 
 use Awelty\Component\Security\HmacSignatureProvider;
 use Awelty\Component\Security\MiddlewareProvider;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client as HttpClient;
 
+/**
+ * Centre-aide API client
+ */
 class Client
 {
     private $client;
 
+    /**
+     * Client constructor.
+     * @param HmacSignatureProvider $hmacSignature
+     * @param array $guzzleOptions
+     */
     public function __construct(HmacSignatureProvider $hmacSignature, $guzzleOptions = [])
     {
-        // Création du handler
-        //---------------------
-        $handler = HandlerStack::create();
+        $handler = !empty($guzzleOptions['handler']) ? $guzzleOptions['handler'] : HandlerStack::create();
         $handler->push(MiddlewareProvider::signRequestMiddleware($hmacSignature));
-
-        if (isset($guzzleOptions['handler'])) {
-            throw new \Exception('Do you really need to set an handler ?');
-        }
 
         $guzzleOptions['handler'] = $handler;
 
         $this->client = new HttpClient($guzzleOptions);
     }
 
+    /**
+     * @param string $fromEmail the user e-mail
+     * @param string $subject
+     * @param string $content
+     * @param string|null $url the current url, or the url the ticket is about
+     * @param string|null $userAgent
+     * @param string|null $navigator the navigator JS object (as json)
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function createTicket($fromEmail, $subject, $content, $url = null, $userAgent = null, $navigator = null)
     {
         return $this->client->post('/tickets', [
             'json' => [
-                'email' => $fromEmail,
-                'subject' => $subject,
-                'content' => $content,
-                'url' => $url,
-                'userAgent' => $userAgent,
-                'navigator' => $navigator,
+                'ticket' => [
+                    'user' => $fromEmail,
+                    'subject' => $subject,
+                    'content' => $content,
+                    'url' => $url,
+                    'userAgent' => $userAgent,
+                    'navigator' => $navigator,
+                ]
             ]
         ]);
     }

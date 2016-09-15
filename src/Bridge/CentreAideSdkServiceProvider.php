@@ -1,8 +1,8 @@
 <?php
 
-namespace Awelty\CentreAide\PhpSdk\Bridge;
+namespace CentreAide\PhpSdk\Bridge;
 
-use Awelty\CentreAide\PhpSdk\Client;
+use CentreAide\PhpSdk\Client;
 use Awelty\Component\Security\HmacAuthenticator;
 use Awelty\Component\Security\HmacSignatureProvider;
 use Pimple\Container;
@@ -22,7 +22,10 @@ class CentreAideSdkServiceProvider implements ServiceProviderInterface, Bootable
         /**
          * Options pour construire le client Guzzle
          */
-        $container['centreaide.guzzle.options'] = [];
+        $container['centreaide.guzzle.options'] = [
+            'debug' => false,
+            'base_uri' => 'https://api.centre-aide.fr',
+        ];
 
         /**
          * Authenticator
@@ -34,12 +37,6 @@ class CentreAideSdkServiceProvider implements ServiceProviderInterface, Bootable
 
     public function boot(Application $app)
     {
-        // "force" base_uri
-        $options = $app['centreaide.guzzle.options'];
-        $options['base_uri'] = 'http://api.jplantey.centre-aide.fr'; // TODO
-
-        $app['centreaide.guzzle.options'] = $options;
-
         // create services
         foreach ($app['centreaide.companies'] as $name => $config) {
             $authenticator = new HmacSignatureProvider($config['public_key'], $config['private_key'], 'sha1');
