@@ -12,6 +12,8 @@ use GuzzleHttp\Client as HttpClient;
  */
 class Client
 {
+    const BASE_URI = 'https://api.centre-aide.fr';
+
     private $client;
 
     /**
@@ -25,6 +27,11 @@ class Client
         $handler->push(MiddlewareProvider::signRequestMiddleware($hmacSignature));
 
         $guzzleOptions['handler'] = $handler;
+
+        // set a base_uri if not provided
+        if (empty($guzzleOptions['base_uri'])) {
+            $guzzleOptions['base_uri'] = self::BASE_URI;
+        }
 
         $this->client = new HttpClient($guzzleOptions);
     }

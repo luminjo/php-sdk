@@ -41,7 +41,7 @@ class CentreAideSdkServiceProvider implements ServiceProviderInterface, Bootable
         foreach ($app['centreaide.companies'] as $name => $config) {
             $authenticator = new HmacSignatureProvider($config['public_key'], $config['private_key'], 'sha1');
 
-            $app['centreaide.'.$name.'.client'] = function (Container $container) use ($authenticator) {
+            $app['centreaide.'.$name] = function (Container $container) use ($authenticator) {
                 return new Client($authenticator, $container['centreaide.guzzle.options']);
             };
         }
