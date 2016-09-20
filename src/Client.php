@@ -60,4 +60,9 @@ class Client
             ]
         ]);
     }
+
+    public function helloWorld()
+    {
+        return $this->client->get('/');
+    }
 }
