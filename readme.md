@@ -1,4 +1,4 @@
-# Centre Aide PHP SDK
+# Luminjo PHP SDK
 
 PHP SDK for https://fr.luminjo.com
 

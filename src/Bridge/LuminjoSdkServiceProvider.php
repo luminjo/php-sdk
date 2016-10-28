@@ -10,7 +10,7 @@ use Pimple\ServiceProviderInterface;
 use Silex\Api\BootableProviderInterface;
 use Silex\Application;
 
-class CentreAideSdkServiceProvider implements ServiceProviderInterface, BootableProviderInterface
+class LuminjoSdkServiceProvider implements ServiceProviderInterface, BootableProviderInterface
 {
     public function register(Container $container)
     {
