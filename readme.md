@@ -1,11 +1,11 @@
 # Centre Aide PHP SDK
 
-PHP SDK for http://www.centre-aide.fr
+PHP SDK for https://fr.luminjo.com
 
 ## Install
 
 ```
-composer require centre-aide/php-sdk:dev-master
+composer require luminjo/php-sdk:dev-master
 ```
 A stable version will eventually be released one day...
 
@@ -18,23 +18,23 @@ You can use the service provider:
 ```
 <?php 
 
-CentreAide\PhpSdk\Bridge\CentreAideSdkServiceProvider;
+Luminjo\PhpSdk\Bridge\LuminjoSdkServiceProvider;
 
-$app->register(new CentreAideSdkServiceProvider(), [
-    'centreaide.companies' => [
+$app->register(new LuminjoSdkServiceProvider(), [
+    'luminjo.companies' => [
         'yourCompanyName' => [
             'public_key' => 'appPublicKey',
             'private_key' => 'appPrivateKey',
         ]
     ],
     // optionnal, guzzle client __construct options
-    'centreaide.guzzle.options' => [
+    'luminjo.guzzle.options' => [
         'debug' => false,
     ]
 ]);
 ```
 
-For each companies it will create a service named "centreaide.*yourCompanyName*"
+For each companies it will create a service named "luminjo.*yourCompanyName*"
 
 #### Or manually
 
@@ -42,12 +42,12 @@ For each companies it will create a service named "centreaide.*yourCompanyName*"
 <?php 
 
 use Awelty\Component\Security\HmacSignatureProvider;
-use CentreAide\PhpSdk\Client;
+use Luminjo\PhpSdk\Client;
 
-// Centreaide use hmac authentification with sha1 as algo
+// Luminjo use hmac authentification with sha1 as algo
 $signatureProvider = new HmacSignatureProvider($publicKey, $privateKey, 'sha1');
 
-$centreAide = new Client($authenticator, $someGuzzleConfig = []);
+$luminjo = new Client($authenticator, $someGuzzleConfig = []);
 ```
 
 ### Usage
