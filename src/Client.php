@@ -1,6 +1,6 @@
 <?php
 
-namespace CentreAide\PhpSdk;
+namespace Luminjo\PhpSdk;
 
 use Awelty\Component\Security\HmacSignatureProvider;
 use Awelty\Component\Security\MiddlewareProvider;
@@ -12,7 +12,7 @@ use GuzzleHttp\Client as HttpClient;
  */
 class Client
 {
-    const BASE_URI = 'https://api.centre-aide.fr';
+    const BASE_URI = 'https://api.luminjo.com';
 
     private $client;
 

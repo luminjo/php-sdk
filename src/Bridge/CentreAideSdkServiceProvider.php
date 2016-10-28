@@ -1,8 +1,8 @@
 <?php
 
-namespace CentreAide\PhpSdk\Bridge;
+namespace Luminjo\PhpSdk\Bridge;
 
-use CentreAide\PhpSdk\Client;
+use Luminjo\PhpSdk\Client;
 use Awelty\Component\Security\HmacAuthenticator;
 use Awelty\Component\Security\HmacSignatureProvider;
 use Pimple\Container;

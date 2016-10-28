@@ -1,5 +1,5 @@
 {
-  "name": "centre-aide/php-sdk",
+  "name": "luminjo/php-sdk",
   "require": {
     "guzzlehttp/guzzle": "^6.2",
     "awelty/security": "dev-master",
@@ -19,7 +19,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "CentreAide\\PhpSdk\\": "src"
+      "Luminjo\\PhpSdk\\": "src"
     }
   }
 }
