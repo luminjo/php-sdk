@@ -50,7 +50,7 @@ class Client
         return $this->client->post('/tickets', [
             'json' => [
                 'ticket' => [
-                    'user' => $fromEmail,
+                    'author' => $fromEmail,
                     'subject' => $subject,
                     'content' => $content,
                     'url' => $url,

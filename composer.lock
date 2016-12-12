@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f51302bc0b2e10ad8ff0c8a5cffd4f3b",
-    "content-hash": "40018ddcb0a2c044976f9ab83692f7c0",
+    "hash": "6556a59dd24e2ffcda25d276f959ff50",
+    "content-hash": "f08862bcdc173565e42860619a6ce6b3",
     "packages": [
         {
             "name": "awelty/security",
