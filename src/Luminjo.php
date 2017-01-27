@@ -6,15 +6,31 @@ use Awelty\Component\Security\HmacSignatureProvider;
 use Awelty\Component\Security\MiddlewareProvider;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client as HttpClient;
+use Luminjo\PhpSdk\Client\TicketClient;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 /**
- * Centre-aide API client
+ * Luminjo API client
  */
-class Client
+class Luminjo
 {
     const BASE_URI = 'https://api.luminjo.com';
 
+    /**
+     * @var HttpClient
+     */
     private $client;
+
+    /**
+     * @var TicketClient
+     */
+    private $ticketClient;
+
+    /**
+     * @var Serializer
+     */
+    private $serializer;
 
     /**
      * Client constructor.
@@ -34,33 +50,18 @@ class Client
         }
 
         $this->client = new HttpClient($guzzleOptions);
+
+        $this->serializer = new Serializer([], [new JsonEncoder()]);
+    }
+
+    public function ticket()
+    {
+        return $this->ticketClient ?: $this->ticketClient = new TicketClient($this->client, $this->serializer);
     }
 
     /**
-     * @param string $fromEmail the user e-mail
-     * @param string $subject
-     * @param string $content
-     * @param string|null $url the current url, or the url the ticket is about
-     * @param string|null $userAgent
-     * @param string|null $navigator the navigator JS object (as json)
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function createTicket($fromEmail, $subject, $content, $url = null, $userAgent = null, $navigator = null)
-    {
-        return $this->client->post('/tickets', [
-            'json' => [
-                'ticket' => [
-                    'author' => $fromEmail,
-                    'subject' => $subject,
-                    'content' => $content,
-                    'url' => $url,
-                    'userAgent' => $userAgent,
-                    'navigator' => $navigator,
-                ]
-            ]
-        ]);
-    }
-
     public function helloWorld()
     {
         return $this->client->get('/');

@@ -3,7 +3,8 @@
   "require": {
     "guzzlehttp/guzzle": "^6.2",
     "awelty/security": "dev-master",
-    "php": ">=5.4.0"
+    "php": ">=5.4.0",
+    "symfony/options-resolver": "^3.2"
   },
   "authors": [
     {

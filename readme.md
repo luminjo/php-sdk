@@ -42,12 +42,12 @@ For each companies it will create a service named "luminjo.*yourCompanyName*"
 <?php 
 
 use Awelty\Component\Security\HmacSignatureProvider;
-use Luminjo\PhpSdk\Client;
+use Luminjo\PhpSdk\Luminjo;
 
 // Luminjo use hmac authentification with sha1 as algo
 $signatureProvider = new HmacSignatureProvider($publicKey, $privateKey, 'sha1');
 
-$luminjo = new Client($authenticator, $someGuzzleConfig = []);
+$luminjo = new Luminjo($authenticator, $someGuzzleConfig = []);
 ```
 
 ### Usage
@@ -56,15 +56,24 @@ $luminjo = new Client($authenticator, $someGuzzleConfig = []);
 ```
 <?php 
 
-
-    /**
-     * @param string $fromEmail the user e-mail
-     * @param string $subject
-     * @param string $content
-     * @param string|null $url the current url, or the url the ticket is about
-     * @param string|null $userAgent
-     * @param string|null $navigator the navigator JS object (as json)
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function createTicket($fromEmail, $subject, $content, $url = null, $userAgent = null, $navigator = null);
+    $response = $luminjo->ticket()->create([
+    
+        // required fields
+        'from' => 'client@email.com',
+        'subject' => '$subject',
+        'content' => '$htmlContent',
+        
+        // optionnal
+        'url' => 'http://www.google.com', // a related url or whatever you want..
+        'tags' => ['tag 1', 'tag 2'], // some tags
+        'files' => [
+            [
+                'filename' => 'test avatar api.jpg', // display usage 
+                'path' => 'path/to/file', // a fopen-able path
+            ]
+        ]
+    ]);
+    
+    // 201 empty response
+    $ticketUrl = $response->getHeader('Location');
 ```
