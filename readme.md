@@ -65,6 +65,7 @@ $luminjo = new Luminjo($authenticator, $someGuzzleConfig = []);
         
         // optionnal
         'url' => 'http://www.google.com', // a related url or whatever you want..
+        'user_agent' => $userAgent, 
         'tags' => ['tag 1', 'tag 2'], // some tags
         'files' => [
             [
