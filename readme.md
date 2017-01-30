@@ -47,7 +47,7 @@ use Luminjo\PhpSdk\Luminjo;
 // Luminjo use hmac authentification with sha1 as algo
 $signatureProvider = new HmacSignatureProvider($publicKey, $privateKey, 'sha1');
 
-$luminjo = new Luminjo($authenticator, $someGuzzleConfig = []);
+$luminjo = new Luminjo($signatureProvider, $someGuzzleConfig = []);
 ```
 
 ### Usage
