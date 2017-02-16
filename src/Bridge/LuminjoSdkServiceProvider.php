@@ -38,10 +38,13 @@ class LuminjoSdkServiceProvider implements ServiceProviderInterface, BootablePro
     {
         // create services
         foreach ($app['luminjo.companies'] as $name => $config) {
-            $authenticator = new HmacSignatureProvider($config['public_key'], $config['private_key'], 'sha1');
 
-            $app['luminjo.'.$name] = function (Container $container) use ($authenticator) {
-                return new Luminjo($authenticator, $container['luminjo.guzzle.options']);
+            $app['luminjo.'.$name.'.hmac_signature_provider'] = function (Container $container) use ($config) {
+                return new HmacSignatureProvider($config['public_key'], $config['private_key'], 'sha1');
+            };
+
+            $app['luminjo.'.$name] = function (Container $container) use ($name) {
+                return new Luminjo($container['luminjo.'.$name.'.hmac_signature_provider'], $container['luminjo.guzzle.options']);
             };
         }
     }
