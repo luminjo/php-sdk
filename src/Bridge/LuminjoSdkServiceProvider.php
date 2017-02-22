@@ -3,7 +3,6 @@
 namespace Luminjo\PhpSdk\Bridge;
 
 use Luminjo\PhpSdk\Luminjo;
-use Awelty\Component\Security\HmacAuthenticator;
 use Awelty\Component\Security\HmacSignatureProvider;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -25,13 +24,6 @@ class LuminjoSdkServiceProvider implements ServiceProviderInterface, BootablePro
         $container['luminjo.guzzle.options'] = [
             'debug' => false,
         ];
-
-        /**
-         * Authenticator
-         */
-        $container['luminjo.hmac_authenticator'] = function (Container $container) {
-            return new HmacAuthenticator('sha1');
-        };
     }
 
     public function boot(Application $app)

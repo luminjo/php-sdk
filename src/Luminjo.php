@@ -6,6 +6,7 @@ use Awelty\Component\Security\HmacSignatureProvider;
 use Awelty\Component\Security\MiddlewareProvider;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client as HttpClient;
+use Luminjo\PhpSdk\Client\AuthClient;
 use Luminjo\PhpSdk\Client\TicketClient;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
@@ -26,6 +27,11 @@ class Luminjo
      * @var TicketClient
      */
     private $ticketClient;
+
+    /**
+     * @var AuthClient
+     */
+    private $authClient;
 
     /**
      * @var Serializer
@@ -57,6 +63,11 @@ class Luminjo
     public function ticket()
     {
         return $this->ticketClient ?: $this->ticketClient = new TicketClient($this->client, $this->serializer);
+    }
+
+    public function auth()
+    {
+        return $this->authClient ?: $this->authClient = new AuthClient($this->client, $this->serializer);
     }
 
     /**
