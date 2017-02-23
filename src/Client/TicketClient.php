@@ -2,12 +2,14 @@
 
 namespace Luminjo\PhpSdk\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TicketClient extends AbstractClient
 {
     /**
      * @param array $options
+     * @return ResponseInterface
      */
     public function create($options)
     {
@@ -20,6 +22,7 @@ class TicketClient extends AbstractClient
             'navigator' => null,
             'tags' => [],
             'files' => [],
+            'extra_fields' => [],
         ]);
 
         $ticket = $optionResolver->resolve($options);
@@ -32,6 +35,16 @@ class TicketClient extends AbstractClient
             ['name' => 'ticket[userAgent]', 'contents' => $ticket['user_agent']],
             ['name' => 'ticket[navigator]', 'contents' => $ticket['navigator']],
         ];
+
+        foreach ($ticket['extra_fields'] as $k => $v) {
+            if (!is_scalar($v)) {
+                throw new \Exception(sprintf('All "extra_fields" must be scalar, "%s" value is not.', $k));
+            }
+        }
+
+        if ($ticket['extra_fields']) {
+            $multipart[] = ['name' => 'ticket[extraFields]', 'contents' => serialize($ticket['extra_fields'])];
+        }
 
         foreach ($ticket['tags'] as $tag) {
             $multipart[] = ['name' => 'ticket[tags][]', 'contents' => $tag];
@@ -50,6 +63,6 @@ class TicketClient extends AbstractClient
         ]);
 
         return $response;
-        return $this->serializer->decode($response->getBody(), 'json');
+//        return $this->serializer->decode($response->getBody(), 'json');
     }
 }

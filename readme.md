@@ -72,6 +72,10 @@ $luminjo = new Luminjo($signatureProvider, $someGuzzleConfig = []);
                 'filename' => 'test avatar api.jpg', // display usage 
                 'path' => 'path/to/file', // a fopen-able path
             ]
+        ],
+        'extra_fields' => [ // values MUST be scalar  
+            'a' => 'b',
+            'any' => 'key-value pair'
         ]
     ]);
     
