@@ -9,9 +9,9 @@ composer require luminjo/php-sdk:dev-master
 ```
 A stable version will eventually be released one day...
 
-### Create a client
+## Create a client
 
-#### With Silex
+### With Silex
 
 You can use the service provider: 
 
@@ -21,36 +21,52 @@ You can use the service provider:
 Luminjo\PhpSdk\Bridge\LuminjoSdkServiceProvider;
 
 $app->register(new LuminjoSdkServiceProvider(), [
-    'luminjo.companies' => [
+    'luminjos' => [
         'yourCompanyName' => [
             'public_key' => 'appPublicKey',
             'private_key' => 'appPrivateKey',
+            'options' => [  // optionnal, guzzle client __construct options
+                'debug' => false,
+            ]
         ]
     ],
-    // optionnal, guzzle client __construct options
-    'luminjo.guzzle.options' => [
-        'debug' => false,
-    ]
 ]);
 ```
 
 For each companies it will create a service named "luminjo.*yourCompanyName*"
 
-#### Or manually
+### Or manually
 
 ```
 <?php 
 
-use Awelty\Component\Security\HmacSignatureProvider;
 use Luminjo\PhpSdk\Luminjo;
 
-// Luminjo use hmac authentification with sha1 as algo
-$signatureProvider = new HmacSignatureProvider($publicKey, $privateKey, 'sha1');
-
-$luminjo = new Luminjo($signatureProvider, $someGuzzleConfig = []);
+$luminjo = new Luminjo($publicKey, $privateKey, $someGuzzleConfig = []);
 ```
 
-### Usage
+## Usage
+
+- Verify that you are able to make API requests
+```
+<?php 
+
+use Luminjo\PhpSdk\LuminjoException;
+
+    // ...
+
+    try {
+        // eveything is ok
+        $luminjo->auth()->verify();
+    } catch (LuminjoException $e) {
+        $code = $e->getCode(); // see error handling
+        $message = $e->getMessage();
+         
+        // the PSR response can be retrieved
+        $originalResponse = $e->getResponse();
+    }
+    
+```
 
 - Create a ticket 
 ```
@@ -82,3 +98,38 @@ $luminjo = new Luminjo($signatureProvider, $someGuzzleConfig = []);
     // 201 empty response
     $ticketUrl = $response->getHeader('Location');
 ```
+
+## Error handling
+
+Every API call must be try catched to handle client errors. The LuminjoException contain the response, the error code and a message. 
+The message is for the developper, the code can help you to show a proper error message to the end user. 
+
+```
+<?php 
+
+use Luminjo\PhpSdk\LuminjoException;
+
+    // ...
+
+    try {
+        $response = $luminjo->whatever();
+    } catch (LuminjoException $e) {
+        $code = $e->getCode();
+        $message = $e->getMessage();
+        $originalResponse = $e->getResponse();
+    }
+    
+```
+
+### Codes 
+ 
+
+- 1: Rate limit exceeded. You are doing too many requests, you should wait 60 secondes before the next. 
+- 2: Not allowed. Your current plan doesn't allow you to use the API.
+- 3: Authentification failed. The API keys are probably wrong. 
+
+Keep in mind that codes can be added in the future.
+
+### Limits
+
+Current limitation is 60 requests per minutes.
