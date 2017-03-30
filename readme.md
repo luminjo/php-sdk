@@ -82,6 +82,7 @@ use Luminjo\PhpSdk\LuminjoException;
         // optionnal
         'url' => 'http://www.google.com', // a related url or whatever you want..
         'user_agent' => $userAgent, 
+        'folder' => 'My folder', // a folder name, will be created if missing
         'tags' => ['tag 1', 'tag 2'], // some tags
         'files' => [
             [
