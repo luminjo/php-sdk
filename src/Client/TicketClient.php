@@ -27,6 +27,7 @@ class TicketClient extends AbstractClient
             'tags' => [],
             'files' => [],
             'extra_fields' => [],
+            'folder' => null,
         ]);
 
         $ticket = $optionResolver->resolve($options);
@@ -38,6 +39,7 @@ class TicketClient extends AbstractClient
             ['name' => 'ticket[url]', 'contents' => $ticket['url']],
             ['name' => 'ticket[userAgent]', 'contents' => $ticket['user_agent']],
             ['name' => 'ticket[navigator]', 'contents' => $ticket['navigator']],
+            ['name' => 'ticket[folder]', 'contents' => $ticket['folder']],
         ];
 
         foreach ($ticket['extra_fields'] as $k => $v) {
