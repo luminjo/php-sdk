@@ -40,11 +40,14 @@ class Luminjo
 
     /**
      * Client constructor.
-     * @param HmacSignatureProvider $hmacSignature
+     * @param $publicKey
+     * @param $privateKey
      * @param array $guzzleOptions
      */
-    public function __construct(HmacSignatureProvider $hmacSignature, $guzzleOptions = [])
+    public function __construct($publicKey, $privateKey, $guzzleOptions = [])
     {
+        $hmacSignature = new HmacSignatureProvider($publicKey, $privateKey, 'sha1');
+
         $handler = !empty($guzzleOptions['handler']) ? $guzzleOptions['handler'] : HandlerStack::create();
         $handler->push(MiddlewareProvider::signRequestMiddleware($hmacSignature));
 
@@ -72,9 +75,11 @@ class Luminjo
 
     /**
      * @return \Psr\Http\Message\ResponseInterface
+     * @deprecated
      */
     public function helloWorld()
     {
+        @trigger_error('helloWorld() is deprecated, use auth->verify instead.', E_USER_DEPRECATED);
         return $this->client->get('/');
     }
 }

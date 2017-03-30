@@ -2,6 +2,8 @@
 
 namespace Luminjo\PhpSdk\Client;
 
+use GuzzleHttp\Exception\ClientException;
+use Luminjo\PhpSdk\LuminjoException;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -10,6 +12,8 @@ class TicketClient extends AbstractClient
     /**
      * @param array $options
      * @return ResponseInterface
+     * @throws LuminjoException
+     * @throws \InvalidArgumentException
      */
     public function create($options)
     {
@@ -38,7 +42,7 @@ class TicketClient extends AbstractClient
 
         foreach ($ticket['extra_fields'] as $k => $v) {
             if (!is_scalar($v)) {
-                throw new \Exception(sprintf('All "extra_fields" must be scalar, "%s" value is not.', $k));
+                throw new \InvalidArgumentException(sprintf('All "extra_fields" must be scalar, "%s" value is not.', $k));
             }
         }
 
@@ -58,10 +62,13 @@ class TicketClient extends AbstractClient
             ];
         }
 
-        $response = $this->client->post('/tickets', [
-            'multipart' => $multipart
-        ]);
-
+        try {
+            $response = $this->client->post('/tickets', [
+                'multipart' => $multipart
+            ]);
+        } catch (ClientException $e) {
+            throw new LuminjoException($e->getResponse(), $e);
+        }
         return $response;
 //        return $this->serializer->decode($response->getBody(), 'json');
     }

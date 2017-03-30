@@ -16,27 +16,19 @@ class LuminjoSdkServiceProvider implements ServiceProviderInterface, BootablePro
         /**
          * Les applications EmStorage
          */
-        $container['luminjo.companies'] = [];
-
-        /**
-         * Options pour construire le client Guzzle
-         */
-        $container['luminjo.guzzle.options'] = [
-            'debug' => false,
-        ];
+        $container['luminjos'] = [];
     }
 
     public function boot(Application $app)
     {
         // create services
-        foreach ($app['luminjo.companies'] as $name => $config) {
+        foreach ($app['luminjos'] as $name => $config) {
+            if (!isset($config['options'])) {
+                $config['options'] = [];
+            }
 
-            $app['luminjo.'.$name.'.hmac_signature_provider'] = function (Container $container) use ($config) {
-                return new HmacSignatureProvider($config['public_key'], $config['private_key'], 'sha1');
-            };
-
-            $app['luminjo.'.$name] = function (Container $container) use ($name) {
-                return new Luminjo($container['luminjo.'.$name.'.hmac_signature_provider'], $container['luminjo.guzzle.options']);
+            $app['luminjo.'.$name] = function (Container $container) use ($config) {
+                return new Luminjo($config['public_key'], $config['private_key'], $config['options']);
             };
         }
     }
