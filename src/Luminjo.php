@@ -53,6 +53,14 @@ class Luminjo
 
         $guzzleOptions['handler'] = $handler;
 
+        if (!isset($guzzleOptions['connect_timeout'])) {
+            $guzzleOptions['connect_timeout'] = 3;
+        }
+
+        if (!isset($guzzleOptions['timeout'])) {
+            $guzzleOptions['timeout'] = 3;
+        }
+
         // set a base_uri if not provided
         if (empty($guzzleOptions['base_uri'])) {
             $guzzleOptions['base_uri'] = self::BASE_URI;
