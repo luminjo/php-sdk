@@ -42,7 +42,7 @@ For each companies it will create a service named "luminjo.*yourCompanyName*"
 
 use Luminjo\PhpSdk\Luminjo;
 
-$luminjo = new Luminjo($publicKey, $privateKey, $someGuzzleConfig = []);
+$luminjo = new Luminjo($publicKey, $privateKey, $guzzleOptions = []);
 ```
 
 ## Usage
@@ -134,3 +134,11 @@ Keep in mind that codes can be added in the future.
 ### Limits
 
 Current limitation is 60 requests per minutes.
+
+## Options
+
+You can find options ($guzzleOptions) here: http://docs.guzzlephp.org/en/latest/request-options.html
+
+If you don't provide these keys, these are the default: 
+- connect_timeout: 3
+- timeout: 3
