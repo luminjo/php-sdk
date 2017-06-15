@@ -71,7 +71,30 @@ class TicketClient extends AbstractClient
         } catch (ClientException $e) {
             throw new LuminjoException($e->getResponse(), $e);
         }
+
         return $response;
 //        return $this->serializer->decode($response->getBody(), 'json');
+    }
+
+    public function find($params = [])
+    {
+        $optionResolver = new OptionsResolver();
+        $optionResolver->setRequired(['email']);
+
+        $optionResolver->setDefaults([
+
+        ]);
+
+        $params = $optionResolver->resolve($params);
+
+        try {
+            $response = $this->client->get('/tickets', [
+                'query' => $params
+            ]);
+        } catch (ClientException $e) {
+            throw new LuminjoException($e->getResponse(), $e);
+        }
+
+        return \GuzzleHttp\json_decode($response->getBody()->getContents());
     }
 }

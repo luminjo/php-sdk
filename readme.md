@@ -100,6 +100,16 @@ use Luminjo\PhpSdk\LuminjoException;
     $ticketUrl = $response->getHeader('Location');
 ```
 
+- find tickets
+```
+<?php
+   $tickets = $luminjo->ticket()->find([
+   
+       // required fields
+       'email' => 'client@email.com',
+   ]);
+ 
+```
 ## Error handling
 
 Every API call must be try catched to handle client errors. The LuminjoException contain the response, the error code and a message. 
