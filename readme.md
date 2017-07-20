@@ -110,6 +110,31 @@ use Luminjo\PhpSdk\LuminjoException;
    ]);
  
 ```
+
+You wille receive an array response : 
+ 
+```
+Array
+(
+    [0] => stdClass Object
+        (
+            [subject] => My ticket // can be null
+            [url] => https://posao.luminjo.com/tickets/123
+            [type] => 1 // see "Ticket types" chapter
+        )
+
+)
+
+```
+
+### Ticket types
+
+Tickets can be more than simple tickets, for example when you get a customer call. Remember, only tickets type 1 should be visible for a customer, other types are hidden.
+- ticket: 1
+- call: 2
+- meet: 3
+- other: 4
+
 ## Error handling
 
 Every API call must be try catched to handle client errors. The LuminjoException contain the response, the error code and a message. 
