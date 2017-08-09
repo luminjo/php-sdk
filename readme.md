@@ -127,6 +127,52 @@ Array
 
 ```
 
+- get faq (behavior is the same as on the website : index get highlited questions)
+ 
+```
+<?php
+   $questions = $luminjo->faq()->index([
+       // optionnal 
+       'category' => $categoryId,
+   ]);
+```
+
+Response : 
+ 
+```
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 1
+            [qustion] => "How change my password"
+            [response] => "<p>Seriously ?</p>" // html content
+            [highlight] => true / false
+        )
+
+)
+```
+
+- Faq categories
+
+```
+<?php
+   $categories = $luminjo->faq()->categories();
+```
+
+Response : 
+ 
+```
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 1
+            [name] => "My category"
+        )
+)
+```
+
 ### Ticket types
 
 Tickets can be more than simple tickets, for example when you get a customer call. Remember, only tickets type 1 should be visible for a customer, other types are hidden.

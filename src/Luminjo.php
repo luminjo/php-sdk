@@ -7,6 +7,7 @@ use Awelty\Component\Security\MiddlewareProvider;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client as HttpClient;
 use Luminjo\PhpSdk\Client\AuthClient;
+use Luminjo\PhpSdk\Client\FaqClient;
 use Luminjo\PhpSdk\Client\TicketClient;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
@@ -32,6 +33,11 @@ class Luminjo
      * @var AuthClient
      */
     private $authClient;
+
+    /**
+     * @var FaqClient
+     */
+    private $faqClient;
 
     /**
      * @var Serializer
@@ -79,6 +85,11 @@ class Luminjo
     public function auth()
     {
         return $this->authClient ?: $this->authClient = new AuthClient($this->client, $this->serializer);
+    }
+
+    public function faq()
+    {
+        return $this->faqClient ?: $this->faqClient = new FaqClient($this->client, $this->serializer);
     }
 
     /**
