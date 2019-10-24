@@ -4,19 +4,12 @@
     "guzzlehttp/guzzle": "^6.2",
     "awelty/security": "dev-master",
     "php": ">=5.4.0",
-    "symfony/options-resolver": "^3.2",
-    "symfony/serializer": "^3.2"
+    "symfony/options-resolver": "^3.2|^4.0"
   },
   "authors": [
     {
       "name": "Jonathan Plantey",
       "email": "jonathan@e-monsite.com"
-    }
-  ],
-  "repositories": [
-    {
-      "url": "https://bitbucket.org/awelty/security",
-      "type": "git"
     }
   ],
   "autoload": {

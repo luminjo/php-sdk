@@ -9,8 +9,6 @@ use GuzzleHttp\Client as HttpClient;
 use Luminjo\PhpSdk\Client\AuthClient;
 use Luminjo\PhpSdk\Client\FaqClient;
 use Luminjo\PhpSdk\Client\TicketClient;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Serializer;
 
 /**
  * Luminjo API client
@@ -38,11 +36,6 @@ class Luminjo
      * @var FaqClient
      */
     private $faqClient;
-
-    /**
-     * @var Serializer
-     */
-    private $serializer;
 
     /**
      * Client constructor.
@@ -73,23 +66,21 @@ class Luminjo
         }
 
         $this->client = new HttpClient($guzzleOptions);
-
-        $this->serializer = new Serializer([], [new JsonEncoder()]);
     }
 
     public function ticket()
     {
-        return $this->ticketClient ?: $this->ticketClient = new TicketClient($this->client, $this->serializer);
+        return $this->ticketClient ?: $this->ticketClient = new TicketClient($this->client);
     }
 
     public function auth()
     {
-        return $this->authClient ?: $this->authClient = new AuthClient($this->client, $this->serializer);
+        return $this->authClient ?: $this->authClient = new AuthClient($this->client);
     }
 
     public function faq()
     {
-        return $this->faqClient ?: $this->faqClient = new FaqClient($this->client, $this->serializer);
+        return $this->faqClient ?: $this->faqClient = new FaqClient($this->client);
     }
 
     /**

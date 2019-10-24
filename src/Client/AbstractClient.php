@@ -3,7 +3,6 @@
 namespace Luminjo\PhpSdk\Client;
 
 use GuzzleHttp\Client;
-use Symfony\Component\Serializer\Serializer;
 
 class AbstractClient
 {
@@ -13,18 +12,11 @@ class AbstractClient
     protected $client;
 
     /**
-     * @var Serializer
-     */
-    protected $serializer;
-
-    /**
      * ApplicationClient constructor.
      * @param Client $client
-     * @param Serializer $serializer
      */
-    public function __construct(Client $client, Serializer $serializer)
+    public function __construct(Client $client)
     {
         $this->client = $client;
-        $this->serializer = $serializer;
     }
 }

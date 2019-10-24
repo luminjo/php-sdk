@@ -73,7 +73,6 @@ class TicketClient extends AbstractClient
         }
 
         return $response;
-//        return $this->serializer->decode($response->getBody(), 'json');
     }
 
     public function find($params = [])
