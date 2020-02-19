@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af118f14bc8d3683927b1b0a3c40810b",
+    "content-hash": "a0dcbe0b5e59a1c845cdcf5933bd7c71",
     "packages": [
         {
             "name": "awelty/security",
