@@ -82,14 +82,4 @@ class Luminjo
     {
         return $this->faqClient ?: $this->faqClient = new FaqClient($this->client);
     }
-
-    /**
-     * @return \Psr\Http\Message\ResponseInterface
-     * @deprecated
-     */
-    public function helloWorld()
-    {
-        @trigger_error('helloWorld() is deprecated, use auth->verify instead.', E_USER_DEPRECATED);
-        return $this->client->get('/');
-    }
 }
