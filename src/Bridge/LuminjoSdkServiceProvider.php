@@ -3,7 +3,7 @@
 namespace Luminjo\PhpSdk\Bridge;
 
 use Luminjo\PhpSdk\Luminjo;
-use Awelty\Component\Security\HmacSignatureProvider;
+use Luminjo\PhpSdk\Security\HmacSignatureProvider;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Api\BootableProviderInterface;
