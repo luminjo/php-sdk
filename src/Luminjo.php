@@ -2,8 +2,8 @@
 
 namespace Luminjo\PhpSdk;
 
-use Awelty\Component\Security\HmacSignatureProvider;
-use Awelty\Component\Security\MiddlewareProvider;
+use Luminjo\PhpSdk\Security\HmacSignatureProvider;
+use Luminjo\PhpSdk\Security\MiddlewareProvider;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client as HttpClient;
 use Luminjo\PhpSdk\Client\AuthClient;

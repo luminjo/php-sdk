@@ -4,46 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e50d5973ee359331f3c5991e026875d",
+    "content-hash": "b9cff89f0dea52062797c05dbbc49fcb",
     "packages": [
-        {
-            "name": "awelty/security",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/awelty/security.git",
-                "reference": "a56fdcd04c7591ef20e76c1f406b8cd13e525824"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/awelty/security/zipball/a56fdcd04c7591ef20e76c1f406b8cd13e525824",
-                "reference": "a56fdcd04c7591ef20e76c1f406b8cd13e525824",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/psr7": "^1.3"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Awelty\\Component\\Security\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "John",
-                    "email": "jonathan@e-monsite.com"
-                }
-            ],
-            "description": "Some security stuff like hmac authentification manager",
-            "support": {
-                "issues": "https://github.com/awelty/security/issues",
-                "source": "https://github.com/awelty/security/tree/master"
-            },
-            "time": "2017-03-30T08:04:09+00:00"
-        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "7.4.5",
@@ -644,14 +606,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "awelty/security": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.4"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }

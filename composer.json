@@ -2,7 +2,6 @@
   "name": "luminjo/php-sdk",
   "require": {
     "php": ">=7.4",
-    "awelty/security": "dev-master",
     "symfony/options-resolver": "^5.0|^6.0",
     "guzzlehttp/guzzle": "^7.4"
   },
