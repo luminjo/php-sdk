@@ -2,7 +2,7 @@
   "name": "luminjo/php-sdk",
   "require": {
     "php": ">=7.4",
-    "symfony/options-resolver": "^5.0|^6.0",
+    "symfony/options-resolver": "^5.0|^6.0|^7.0",
     "guzzlehttp/guzzle": "^7.4"
   },
   "authors": [
